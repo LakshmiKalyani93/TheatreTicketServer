@@ -1,0 +1,42 @@
+{
+  "name": "Ticket",
+  "base": "PersistedModel",
+  "plural": "tickets",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "Timestamp": {}
+  },
+  "properties": {
+    "id": {
+      "type": "string",
+      "id": true
+    },
+    "creationDate": {
+      "type": "date",
+      "required": true
+    },
+    "customerName": {
+      "type": "string",
+      "required": true
+    },
+    "performanceTitle": {
+      "type": "string",
+      "required": true
+    },
+    "performanceTime": {
+      "type": "date",
+      "required": true
+    },
+    "ticketPrice": {
+      "type": "number",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

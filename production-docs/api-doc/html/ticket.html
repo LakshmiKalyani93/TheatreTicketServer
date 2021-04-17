@@ -1,0 +1,818 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>test.md</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="theatre-ticket-apis">Theatre Ticket APIs</h1>
+<p><strong>Description:</strong> Describe the theatre tickets management and its analytics</p>
+<h2 id="index">INDEX</h2>
+<p><a href="#schema">Model Schema</a></p>
+<p><a href="#post-apitickets">Create New Ticket</a></p>
+<p><a href="#get-apitickets">Get Ticket</a></p>
+<p><a href="#get-apiticketscount">Get Ticket Count</a></p>
+<p><a href="#get-apiticketsid">Get Ticket By Ticket Id</a></p>
+<p><a href="#delete-apiticketsid">Delete Ticket By Ticket Id</a></p>
+<p><a href="#put-apiticketsid">Update Ticket By Ticket Id</a></p>
+<p><a href="#get-apiticketsanalyticsearned">Get Earned Profit Analytics</a></p>
+<p><a href="#get-apiticketsanalyticsvisited">Get  Visited People Analytics</a></p>
+<h2 id="schema">Schema</h2>
+
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Datatype</th>
+<th>Description</th>
+<th>Constrains</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>id of domain</td>
+<td>-</td>
+</tr>
+<tr>
+<td>creationDate</td>
+<td>date</td>
+<td>timestamp of the ticket being created or generated</td>
+<td>-</td>
+</tr>
+<tr>
+<td>customerName</td>
+<td>string</td>
+<td>name of the customer</td>
+<td>-</td>
+</tr>
+<tr>
+<td>performanceTitle</td>
+<td>string</td>
+<td>name of the performance played</td>
+<td>-</td>
+</tr>
+<tr>
+<td>performanceTime</td>
+<td>string</td>
+<td>timestamp of the performance conducted</td>
+<td>-</td>
+</tr>
+<tr>
+<td>ticketPrice</td>
+<td>number</td>
+<td>price of the ticket</td>
+<td>-</td>
+</tr>
+<tr>
+<td>created</td>
+<td>date</td>
+<td>document created timestamp in the database</td>
+<td>-</td>
+</tr>
+<tr>
+<td>lastUpdated</td>
+<td>date</td>
+<td>document last updated timestamp in the databas</td>
+<td>-</td>
+</tr>
+</tbody>
+</table><h2 id="post-apitickets">POST /api/tickets</h2>
+<p><strong>Description:</strong> Create new Ticket</p>
+<p><strong>Authentication:</strong> Required</p>
+<p><strong>Authorization:</strong>  A constant key agreed upon both server and client side applications.</p>
+<p><strong>Parameters</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Name</th>
+<th>Description</th>
+<th>Example</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Headers</td>
+<td>authToken</td>
+<td>constant string</td>
+<td>xxxx</td>
+<td><code>yes</code></td>
+</tr>
+</tbody>
+</table><p><strong>Payload</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>No</td>
+</tr>
+<tr>
+<td>creationDate</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>customerName</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>performanceTitle</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>performanceTime</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>ticketPrice</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>created</td>
+<td>No</td>
+</tr>
+<tr>
+<td>lastUpdated</td>
+<td>No</td>
+</tr>
+</tbody>
+</table><p><strong>Sample Payload:</strong></p>
+<pre><code>{
+  "creationDate": "2021-04-16T13:20:15.048Z",
+  "customerName": "Kalyani Kolimali",
+  "performanceTitle": "Dance Performance",
+  "performanceTime": "2021-04-16T13:20:15.048Z",
+  "ticketPrice": 600
+}
+</code></pre>
+<p><strong>Response</strong></p>
+<p><strong>200</strong> : Request was successful</p>
+<pre><code>{
+    "id": "60799981b5b4ed68d8cebf31",
+    "creationDate": "2021-04-16T13:20:15.048Z",
+    "customerName": "Kalyani Kolimali",
+    "performanceTitle": "Dance Performance",
+    "performanceTime": "2021-04-16T13:20:15.048Z",
+    "ticketPrice": 600,
+    "created": "2021-04-16T14:04:49.195Z",
+    "lastUpdated": "2021-04-16T14:04:49.195Z"
+}
+</code></pre>
+<p><strong>422</strong> : Unprocessable Entity</p>
+<pre><code>{
+    "error": {
+        "statusCode": 422,
+        "name": "ValidationError",
+        "message": "The `Ticket` instance is not valid. Details: `creationDate` can't be blank (value: undefined).",
+        "details": {
+            "context": "Ticket",
+            "codes": {
+                "creationDate": [
+                    "presence"
+                ]
+            },
+            "messages": {
+                "creationDate": [
+                    "can't be blank"
+                ]
+            }
+        }
+    }
+}
+</code></pre>
+<p><strong>401</strong>: Unauthorized</p>
+<pre><code>{
+    "error": {
+        "statusCode": 401,
+        "name": "Error",
+        "message": "authToken is required"
+    }
+}
+</code></pre>
+<pre><code>{
+    "error": {
+        "statusCode": 401,
+        "name": "Error",
+        "message": "unauthorized"
+    }
+}
+</code></pre>
+<p><strong>500</strong>: Internal Server Error</p>
+<pre><code>{
+	"error": {
+		"statusCode": 500,
+		"message": "Internal Server Error"
+	}
+}
+</code></pre>
+<h2 id="get-apitickets">GET /api/tickets</h2>
+<p><strong>Description:</strong> Get all tickets</p>
+<p><strong>Authentication:</strong> Required</p>
+<p><strong>Authorization:</strong>  A constant key agreed upon both server and client side applications.</p>
+<p><strong>Parameters</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Name</th>
+<th>Description</th>
+<th>Example</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Headers</td>
+<td>authToken</td>
+<td>constant string</td>
+<td>xxxx</td>
+<td><code>yes</code></td>
+</tr>
+</tbody>
+</table><p><strong>Response</strong></p>
+<p><strong>200</strong>: Request was successful</p>
+<pre><code>[
+  {
+    "id": "60799981b5b4ed68d8cebf31",
+    "creationDate": "2021-04-16T13:20:15.048Z",
+    "customerName": "Kalyani Kolimali",
+    "performanceTitle": "Dance Performance",
+    "performanceTime": "2021-04-16T13:20:15.048Z",
+    "ticketPrice": 600,
+    "created": "2021-04-16T14:04:49.195Z",
+    "lastUpdated": "2021-04-16T14:04:49.195Z"
+  }
+]
+</code></pre>
+<p><strong>401</strong>: Unauthorized</p>
+<pre><code>{
+    "error": {
+        "statusCode": 401,
+        "name": "Error",
+        "message": "authToken is required"
+    }
+}
+</code></pre>
+<pre><code>{
+    "error": {
+        "statusCode": 401,
+        "name": "Error",
+        "message": "unauthorized"
+    }
+}
+</code></pre>
+<p><strong>500</strong>: Internal Server Error</p>
+<pre><code>{
+	"error": {
+		"statusCode": 500,
+		"message": "Internal Server Error"
+	}
+}
+</code></pre>
+<h2 id="get-apiticketscount">GET /api/tickets/count</h2>
+<p><strong>Description:</strong> Get Tickets Count</p>
+<p><strong>Authentication:</strong> Required</p>
+<p><strong>Authorization:</strong>  A constant key agreed upon both server and client side applications.</p>
+<p><strong>Parameters</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Name</th>
+<th>Description</th>
+<th>Example</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Headers</td>
+<td>authToken</td>
+<td>constant string</td>
+<td>xxxx</td>
+<td><code>yes</code></td>
+</tr>
+<tr>
+<td>Query</td>
+<td>filter</td>
+<td>where filter</td>
+<td><code>{"where": {"name": "xxxx"}}</code></td>
+<td>No</td>
+</tr>
+</tbody>
+</table><p><strong>Response</strong></p>
+<p><strong>200</strong>: Request was successful</p>
+<pre><code>{
+"count": "4"
+}
+</code></pre>
+<p><strong>400</strong> : Bad Request</p>
+<pre><code>{
+  "error": {
+    "statusCode": 400,
+    "name": "Error",
+    "message": "Value is not an object."
+  }
+}
+</code></pre>
+<p><strong>401</strong>: Unauthorized</p>
+<pre><code>{
+    "error": {
+        "statusCode": 401,
+        "name": "Error",
+        "message": "authToken is required"
+    }
+}
+</code></pre>
+<pre><code>{
+    "error": {
+        "statusCode": 401,
+        "name": "Error",
+        "message": "unauthorized"
+    }
+}
+</code></pre>
+<p><strong>500</strong>: Internal Server Error</p>
+<pre><code>{
+	"error": {
+		"statusCode": 500,
+		"message": "Internal Server Error"
+	}
+}
+</code></pre>
+<h2 id="get-apiticketsid">GET /api/tickets/{id}</h2>
+<p><strong>Description:</strong> Get Ticket by Ticket id</p>
+<p><strong>Authentication:</strong> Required</p>
+<p><strong>Authorization:</strong>  A constant key agreed upon both server and client side applications.</p>
+<p><strong>Parameters</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Name</th>
+<th>Description</th>
+<th>Example</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Headers</td>
+<td>authToken</td>
+<td>constant string</td>
+<td>xxxx</td>
+<td><code>yes</code></td>
+</tr>
+</tbody>
+</table><p><strong>Response</strong></p>
+<p><strong>200</strong>:Request was successful</p>
+<pre><code>{
+  "id": "60799981b5b4ed68d8cebf31",
+  "creationDate": "2021-04-16T13:20:15.048Z",
+  "customerName": "Kalyani Kolimali",
+  "performanceTitle": "Dance Performance",
+  "performanceTime": "2021-04-16T13:20:15.048Z",
+  "ticketPrice": 600,
+  "created": "2021-04-16T14:04:49.195Z",
+  "lastUpdated": "2021-04-16T14:04:49.195Z"
+}
+</code></pre>
+<p><strong>401</strong>: Unauthorized</p>
+<pre><code>{
+    "error": {
+        "statusCode": 401,
+        "name": "Error",
+        "message": "authToken is required"
+    }
+}
+</code></pre>
+<pre><code>{
+    "error": {
+        "statusCode": 401,
+        "name": "Error",
+        "message": "unauthorized"
+    }
+}
+</code></pre>
+<p><strong>404</strong> : Not Found</p>
+<pre><code>{
+  "error": {
+    "statusCode": 404,
+    "name": "Error",
+    "message": "Unknown \"Ticket\" id \"60799981b5b4ed68d8cebf31q\".",
+    "code": "MODEL_NOT_FOUND"
+  }
+}
+</code></pre>
+<p><strong>500</strong>: Internal Server Error</p>
+<pre><code>{
+	"error": {
+		"statusCode": 500,
+		"message": "Internal Server Error"
+	}
+}
+</code></pre>
+<h2 id="delete-apiticketsid">DELETE /api/tickets/{id}</h2>
+<p><strong>Description:</strong> Delete Domain by Domain id</p>
+<p><strong>Authentication:</strong> Required</p>
+<p><strong>Authorization:</strong>  A constant key agreed upon both server and client side applications.</p>
+<p><strong>Parameters</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Name</th>
+<th>Description</th>
+<th>Example</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Headers</td>
+<td>authToken</td>
+<td>constant string</td>
+<td>xxxx</td>
+<td><code>yes</code></td>
+</tr>
+</tbody>
+</table><p><strong>Response</strong></p>
+<p><strong>200</strong>: Request was successful</p>
+<pre><code>{
+"count": "1"
+}
+</code></pre>
+<p><strong>401</strong>: Unauthorized</p>
+<pre><code>{
+    "error": {
+        "statusCode": 401,
+        "name": "Error",
+        "message": "authToken is required"
+    }
+}
+</code></pre>
+<pre><code>{
+    "error": {
+        "statusCode": 401,
+        "name": "Error",
+        "message": "unauthorized"
+    }
+}
+</code></pre>
+<p><strong>500</strong>: Internal Server Error</p>
+<pre><code>{
+	"error": {
+		"statusCode": 500,
+		"message": "Internal Server Error"
+	}
+}
+</code></pre>
+<h2 id="put-apidomainsid">PUT /api/domains/{id}</h2>
+<p><strong>Description:</strong> Update Domain by Domain id</p>
+<p><strong>Authentication:</strong> Required</p>
+<p><strong>Authorization:</strong>  A constant key agreed upon both server and client side applications.</p>
+<p><strong>Parameters</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Name</th>
+<th>Description</th>
+<th>Example</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Headers</td>
+<td>authToken</td>
+<td>constant string</td>
+<td>xxxx</td>
+<td><code>yes</code></td>
+</tr>
+<tr>
+<td>path</td>
+<td>id</td>
+<td>Yes</td>
+<td>id of Domain</td>
+<td><code>xxxxxxxxxxxxxxxxxx</code></td>
+</tr>
+</tbody>
+</table><p><strong>Payload</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>No</td>
+</tr>
+<tr>
+<td>creationDate</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>customerName</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>performanceTitle</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>performanceTime</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>ticketPrice</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>created</td>
+<td>No</td>
+</tr>
+<tr>
+<td>lastUpdated</td>
+<td>No</td>
+</tr>
+</tbody>
+</table><p><strong>Sample Payload:</strong></p>
+<pre><code>{
+  "customerName": "Kalyani Kolimali",
+  "performanceTitle": "Dance Performance" 
+}
+</code></pre>
+<p><strong>Response</strong></p>
+<p><strong>200</strong>: Request was successful</p>
+<pre><code>{
+  "id": "60799981b5b4ed68d8cebf31",
+  "creationDate": "2021-04-16T13:20:15.048Z",
+  "customerName": "Kalyani Kolimali",
+  "performanceTitle": "Dance Performance",
+  "performanceTime": "2021-04-16T13:20:15.048Z",
+  "ticketPrice": 600,
+  "created": "2021-04-16T14:04:49.195Z",
+  "lastUpdated": "2021-04-16T14:04:49.195Z"
+}
+</code></pre>
+<p><strong>422</strong> : Unprocessable Entity</p>
+<pre><code>{
+    "error": {
+        "statusCode": 422,
+        "name": "ValidationError",
+        "message": "The `Ticket` instance is not valid. Details: `creationDate` can't be blank (value: undefined).",
+        "details": {
+            "context": "Ticket",
+            "codes": {
+                "creationDate": [
+                    "presence"
+                ]
+            },
+            "messages": {
+                "creationDate": [
+                    "can't be blank"
+                ]
+            }
+        }
+    }
+}
+</code></pre>
+<p><strong>401</strong>: Unauthorized</p>
+<pre><code>{
+    "error": {
+        "statusCode": 401,
+        "name": "Error",
+        "message": "authToken is required"
+    }
+}
+</code></pre>
+<pre><code>{
+    "error": {
+        "statusCode": 401,
+        "name": "Error",
+        "message": "unauthorized"
+    }
+}
+</code></pre>
+<p><strong>500</strong>: Internal Server Error</p>
+<pre><code>{
+	"error": {
+		"statusCode": 500,
+		"message": "Internal Server Error"
+	}
+}
+</code></pre>
+<h2 id="get-apiticketsanalyticsearned">GET /api/tickets/analytics/earned</h2>
+<p><strong>Description:</strong> Get the analytics of how much money was earned by the theatre between 2 dates division by months, Year.</p>
+<p><strong>Authentication:</strong> Required</p>
+<p><strong>Authorization:</strong>  A constant key agreed upon both server and client side applications.</p>
+<p><strong>Parameters</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Name</th>
+<th>Description</th>
+<th>Example</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Headers</td>
+<td>authToken</td>
+<td>constant string</td>
+<td>xxxx</td>
+<td><code>yes</code></td>
+</tr>
+<tr>
+<td>query params</td>
+<td>method</td>
+<td>constant string</td>
+<td>JSaggregation/DBaggregation</td>
+<td><code>yes</code></td>
+</tr>
+<tr>
+<td>query params</td>
+<td>startDate</td>
+<td>date</td>
+<td>2021-03-04</td>
+<td><code>yes</code></td>
+</tr>
+<tr>
+<td>query params</td>
+<td>endDate</td>
+<td>date</td>
+<td>2021-04-16</td>
+<td><code>yes</code></td>
+</tr>
+</tbody>
+</table><p><strong>Response</strong></p>
+<p><strong>200</strong>: Request was successful</p>
+<pre><code>[
+  {
+    "month": "March 2021",
+    "summaryProfit": 1050
+  },
+  {
+    "month": "April 2021",
+    "summaryProfit": 1350
+  }
+]
+</code></pre>
+<p><strong>401</strong>: Unauthorized</p>
+<pre><code>{
+    "error": {
+        "statusCode": 401,
+        "name": "Error",
+        "message": "authToken is required"
+    }
+}
+</code></pre>
+<pre><code>{
+    "error": {
+        "statusCode": 401,
+        "name": "Error",
+        "message": "unauthorized"
+    }
+}
+</code></pre>
+<p><strong>400</strong>: Bad Request</p>
+<pre><code>{
+    "error": {
+        "statusCode": 400,
+        "name": "Error",
+        "message": "invalid method request"
+    }
+}
+</code></pre>
+<p><strong>500</strong>: Internal Server Error</p>
+<pre><code>{
+	"error": {
+		"statusCode": 500,
+		"message": "Internal Server Error"
+	}
+}
+</code></pre>
+<h2 id="get-apiticketsanalyticsvisited">GET /api/tickets/analytics/visited</h2>
+<p><strong>Description:</strong> Get the analytics of how many people visited by the theatre between 2 dates division by months, Year.</p>
+<p><strong>Authentication:</strong> Required</p>
+<p><strong>Authorization:</strong>  A constant key agreed upon both server and client side applications.</p>
+<p><strong>Parameters</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Name</th>
+<th>Description</th>
+<th>Example</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Headers</td>
+<td>authToken</td>
+<td>constant string</td>
+<td>xxxx</td>
+<td><code>yes</code></td>
+</tr>
+<tr>
+<td>query params</td>
+<td>method</td>
+<td>constant string</td>
+<td>JSaggregation/DBaggregation</td>
+<td><code>yes</code></td>
+</tr>
+<tr>
+<td>query params</td>
+<td>startDate</td>
+<td>date</td>
+<td>2021-03-04</td>
+<td><code>yes</code></td>
+</tr>
+<tr>
+<td>query params</td>
+<td>endDate</td>
+<td>date</td>
+<td>2021-04-16</td>
+<td><code>yes</code></td>
+</tr>
+</tbody>
+</table><p><strong>Response</strong></p>
+<p><strong>200</strong>: Request was successful</p>
+<pre><code>[
+  {
+    "month": "March 2021",
+    "summaryVisit": 3
+  },
+  {
+    "month": "April 2021",
+    "summaryVisit": 3
+  }
+]
+</code></pre>
+<p><strong>401</strong>: Unauthorized</p>
+<pre><code>{
+    "error": {
+        "statusCode": 401,
+        "name": "Error",
+        "message": "authToken is required"
+    }
+}
+</code></pre>
+<pre><code>{
+    "error": {
+        "statusCode": 401,
+        "name": "Error",
+        "message": "unauthorized"
+    }
+}
+</code></pre>
+<p><strong>400</strong>: Bad Request</p>
+<pre><code>{
+    "error": {
+        "statusCode": 400,
+        "name": "Error",
+        "message": "invalid method request"
+    }
+}
+</code></pre>
+<p><strong>500</strong>: Internal Server Error</p>
+<pre><code>{
+	"error": {
+		"statusCode": 500,
+		"message": "Internal Server Error"
+	}
+}
+</code></pre>
+</div>
+</body>
+
+</html>
