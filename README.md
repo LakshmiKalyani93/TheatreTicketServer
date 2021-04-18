@@ -12,6 +12,17 @@ APIs for Theatre Ticket Management & Its analytics
 Run Server Locally --> NODE_ENV=local node .  
 Run Server in dev Mode --> NODE_ENV=dev node .
 
+# Docker Compose Nodejs & & MongoDB Deployment
+
+1. Run the command to build docket image for the project 
+
+    docker build -t theatre-ticket-server .
+
+2. Once the docker image is created, Run the below command
+
+    docker-compose up --build --abort-on-container-exit
+
+    docker run -p 4300:4300 theatre-ticket-server
 
 # Unit Testing 
 
@@ -22,7 +33,6 @@ Run Server in dev Mode --> NODE_ENV=dev node .
     npm run coverage 
 
 2. Go to Coverage/lcov-report/index.html to check for the unit test cases coverage   
-
 
 
 # API Documentation

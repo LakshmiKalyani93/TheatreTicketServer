@@ -1,0 +1,23 @@
+version: "3"
+services:
+  node:
+    container_name: nodejs
+    restart: always
+    build: ./
+    ports:
+      - 4300:4300
+    volumes:
+      - ./:/app
+    links:
+      - mongo  
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb:/data/db
+volumes:
+  mongodb:
+
+    
