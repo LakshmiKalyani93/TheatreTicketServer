@@ -49,7 +49,7 @@
 
 | Type | Name | Description | Example | Required |
 |--|--|--|--|--|
-| Headers| authToken| constant string | xxxx | `yes` |
+| Headers| authToken| constant string | {m6"gL:+9GfH!NdE | `yes` |
 
 **Payload**
 
@@ -163,7 +163,7 @@
 
 | Type | Name | Description | Example | Required |
 |--|--|--|--|--|
-| Headers| authToken| constant string | xxxx | `yes` |
+| Headers| authToken| constant string | {m6"gL:+9GfH!NdE | `yes` |
   
 **Response**
 
@@ -299,7 +299,7 @@
 
 | Type | Name | Description | Example | Required |
 |--|--|--|--|--|
-| Headers| authToken| constant string | xxxx | `yes` |
+| Headers| authToken| constant string | {m6"gL:+9GfH!NdE | `yes` |
 
 **Response**
 
@@ -376,7 +376,7 @@
 
 | Type | Name | Description | Example | Required |
 |--|--|--|--|--|
-| Headers| authToken| constant string | xxxx | `yes` |
+| Headers| authToken| constant string | {m6"gL:+9GfH!NdE | `yes` |
 
 **Response**
 
@@ -432,7 +432,7 @@
 
 | Type | Name | Description | Example | Required |
 |--|--|--|--|--|
-| Headers| authToken| constant string | xxxx | `yes` |
+| Headers| authToken| constant string | {m6"gL:+9GfH!NdE | `yes` |
 | path| id| Yes| id of Domain| `xxxxxxxxxxxxxxxxxx` |Yes
 
 **Payload**
@@ -545,7 +545,7 @@
 
 | Type | Name | Description | Example | Required |
 |--|--|--|--|--|
-| Headers| authToken|  constant string | xxxx | `yes` |
+| Headers| authToken|  constant string | {m6"gL:+9GfH!NdE | `yes` |
 | query params| method| constant string | JSaggregation/DBaggregation | `yes` |
 | query params| startDate| date | 2021-03-04 | `yes` |
 | query params| endDate| date | 2021-04-16 | `yes` |
@@ -624,7 +624,7 @@
 
 | Type | Name | Description | Example | Required |
 |--|--|--|--|--|
-| Headers| authToken|  constant string | xxxx | `yes` |
+| Headers| authToken|  constant string | {m6"gL:+9GfH!NdE | `yes` |
 | query params| method| constant string | JSaggregation/DBaggregation | `yes` |
 | query params| startDate| date | 2021-03-04 | `yes` |
 | query params| endDate| date | 2021-04-16 | `yes` |
